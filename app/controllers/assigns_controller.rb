@@ -4,7 +4,7 @@ class AssignsController < ApplicationController
   before_action :user_exist?, only: [:create]
 
   def create
-    team = find_team(params[:team_id])
+    team = find_team
     user = email_reliable?(assign_params) ? User.find_or_create_by_email(assign_params) : nil
     if user
       team.invite_member(user)
@@ -37,15 +37,15 @@ class AssignsController < ApplicationController
       set_next_team(assign, assigned_user)
       I18n.t('views.messages.delete_member')
     else
-      I18n.t('views.messages.cannot_delete_member_4_some_reason')
+      I18n.t('views.messages.cannot_delete_member_for_some_reason')
     end
   end
 
   def email_exist?
-    team = find_team(params[:team_id])
+    team = find_team
     return unless team.members.exists?(email: params[:email])
 
-    redirect_to team_url(team), notice: I18n.t('views.messages.email_already_exists')
+    redirect_to team_url(team), notice: I18n.t('views.messages.email_already_exist')
   end
 
   def email_reliable?(address)
@@ -53,8 +53,8 @@ class AssignsController < ApplicationController
   end
 
   def user_exist?
-    team = find_team(params[:team_id])
-    return unless User.exists?(email: params[:email])
+    team = find_team
+    return if User.exists?(email: params[:email])
 
     redirect_to team_url(team), notice: I18n.t('views.messages.does_not_exist_email')
   end
@@ -64,7 +64,7 @@ class AssignsController < ApplicationController
     change_keep_team(assigned_user, another_team) if assigned_user.keep_team_id == assign.team_id
   end
 
-  def find_team(team_id)
-    Team.friendly.find(team_id)
+  def find_team
+    Team.friendly.find(params[:team_id])
   end
 end
