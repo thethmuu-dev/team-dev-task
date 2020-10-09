@@ -5,7 +5,7 @@ ruby '2.6.6'
 
 # Core
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 5.2.4.4'
 
 # Middleware
 gem 'pg', '>= 0.18', '< 2.0'
@@ -30,6 +30,8 @@ gem 'seed-fu', '~> 2.3'
 
 # Authentication
 gem 'devise'
+
+gem 'hirb'
 
 group :development, :test do
   gem 'awesome_print'
