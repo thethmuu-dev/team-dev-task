@@ -15,7 +15,8 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
-  def edit; end
+  def edit
+  end
 
   def create
     @team = Team.new(team_params)
@@ -41,6 +42,17 @@ class TeamsController < ApplicationController
   def destroy
     @team.destroy
     redirect_to teams_url, notice: I18n.t('views.messages.delete_team')
+  end
+
+  def make_leader
+    @member = User.find(params[:id])
+    @team = Team.find(params[:team_id])
+    @team.owner = @member
+    if @team.save
+      LeaderMailer.leader_made_mail(@team, @member).deliver
+      flash.now[:notice] = I18n.t('views.messages.leader_made')
+    end
+    redirect_to @team
   end
 
   def dashboard

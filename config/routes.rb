@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'leader/:team_id/:id', to: 'teams#make_leader', as: 'leader'
+
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

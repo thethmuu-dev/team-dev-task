@@ -215,6 +215,7 @@ en:
     pm: pm
   views:
     messages:
+      leader_made: 'Successfully Made Leader!'
       create_agenda: 'Successfully created an agenda!'
       delete_agenda: 'Successfully deleted the agenda! Check mails box'
       create_article: 'Successfully created an article!'
