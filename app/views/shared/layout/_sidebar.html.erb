@@ -36,14 +36,13 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <% @working_team.agendas.each do |agenda| %>
           <li class="nav-item has-treeview menu-open">
-            <%= link_to 'Delete', agenda_path(agenda), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-info mb-2" %>
-            <a href="#" class="nav-link">
-              <i class="fa fa-circle-o nav-icon"></i>
-              <p>
-                <%= agenda.title %>
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
+            <p class="nav-link">
+              <%= agenda.title %>
+              <% if (current_user == agenda.user) || (current_user == agenda.team.owner) %>
+                <%= link_to 'Delete', agenda_path(agenda), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red ml-3" %>
+              <% end %>
+              <i class="right fa fa-angle-left"></i>
+            </p>
             <ul class="nav nav-treeview" style="display: block;">
               <% agenda.articles.each do |article| %>
                 <li class="nav-item">

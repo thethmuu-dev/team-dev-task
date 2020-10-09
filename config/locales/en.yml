@@ -218,6 +218,7 @@ en:
       leader_made: 'Successfully Made Leader!'
       create_agenda: 'Successfully created an agenda!'
       delete_agenda: 'Successfully deleted the agenda! Check mails box'
+      cannot_delete_agenda: 'You can delete only your own agendas'
       create_article: 'Successfully created an article!'
       update_article: 'Successfully updated the article!'
       assigned: 'Assigned!'
