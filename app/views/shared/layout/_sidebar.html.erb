@@ -6,9 +6,15 @@
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <div class="user-panel mt-3 pb-3 mb-3">
+    <div class="user-panel my-3">
       <div class="info">
         <h3 style="color: white;"><%= @working_team.name.truncate(15) %></h3>
+      </div>
+    </div>
+
+    <div class="user-panel my-3">
+      <div class="info">
+        <h4><%= link_to "View Mails", letter_opener_web_path, target: '_blank' %></h4>
       </div>
     </div>
 

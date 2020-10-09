@@ -22,9 +22,13 @@ class AgendasController < ApplicationController
   end
 
   def destroy
-    if @agenda.user || @agenda.team.owner
-      @agenda.destroy
-      redirect_to dashboard_url, notice: I18n.t('views.messages.delete_agenda')
+    @owner = @agenda.team.owner
+    @members = @agenda.team.members
+    if (@agenda.user || @agenda.team.owner)
+      if @agenda.destroy
+        AgendaMailer.delete_agenda_mail(@owner, @members, @agenda.title).deliver
+        redirect_to dashboard_url, notice: I18n.t('views.messages.delete_agenda')
+      end
     end
   end
 
