@@ -33,7 +33,7 @@
               <table class="table">
                 <tr>
                   <td><%= image_tag 'default.jpg', size: '40x40' %></td>
-                  <td><label style="background-color: red"><%= I18n.t('views.messages.leader') %></label>：<%= @team.owner.email %></td>
+                  <td><label class="bg-danger px-2 py-1"><%= I18n.t('views.messages.leader') %></label>：<%= @team.owner.email %></td>
                 </tr>
               </table>
               <h5><%= I18n.t('views.messages.team_members2') %></h5>
@@ -43,9 +43,10 @@
                     <tr>
                       <td><%= image_tag 'default.jpg', size: '40x40' %></td>
                       <td><%= assign.user.email %></td>
-                      <% if current_user == @team.owner %>
+                      <% if ( current_user == assign.user && @team.owner ) %>
+                        <td><%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
+                      <% elsif current_user == @team.owner %>
                         <td><%= link_to 'Make Leader', leader_path(@team.id, assign.user), class: 'btn btn-sm btn-info' %></td>
-                      <% elsif current_user == assign.user %>
                         <td><%= link_to I18n.t('views.button.delete'), team_assign_path(@team, assign), method: :delete, class: 'btn btn-sm btn-danger' %></td>
                       <% else %>
                         <td></td>
